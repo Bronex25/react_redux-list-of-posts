@@ -5,7 +5,7 @@ import { createPostComment } from '../features/createCommentSlice';
 
 export const NewCommentForm: React.FC = () => {
   const { loading } = useAppSelector(state => state.createComment);
-  const postId = useAppSelector(state => state.posts.selectedPost?.id) || 0;
+  const postId = useAppSelector(state => state.posts.selectedPost?.id) || null;
   const dispatch = useAppDispatch();
 
   const [errors, setErrors] = useState({
@@ -52,7 +52,7 @@ export const NewCommentForm: React.FC = () => {
       body: !body,
     });
 
-    if (!name || !email || !body) {
+    if (!name || !email || !body || !postId) {
       return;
     }
 
@@ -166,6 +166,7 @@ export const NewCommentForm: React.FC = () => {
             className={classNames('button', 'is-link', {
               'is-loading': loading,
             })}
+            disabled={loading}
           >
             Add
           </button>

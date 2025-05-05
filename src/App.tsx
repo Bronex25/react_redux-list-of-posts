@@ -18,13 +18,13 @@ export const App: React.FC = () => {
   );
   const dispatch = useAppDispatch();
 
-  const author = useAppSelector(state => state.user.selectedUser);
+  const authorId = useAppSelector(state => state.user.selectedUser?.id);
 
   useEffect(() => {
-    if (author) {
-      dispatch(fetchPosts(author.id));
+    if (authorId) {
+      dispatch(fetchPosts(authorId));
     }
-  }, [author, dispatch]);
+  }, [authorId, dispatch]);
 
   return (
     <main className="section">
@@ -37,11 +37,11 @@ export const App: React.FC = () => {
               </div>
 
               <div className="block" data-cy="MainContent">
-                {!author && <p data-cy="NoSelectedUser">No user selected</p>}
+                {!authorId && <p data-cy="NoSelectedUser">No user selected</p>}
 
-                {author && loading && <Loader />}
+                {authorId && loading && <Loader />}
 
-                {author && !loading && error && (
+                {authorId && !loading && error && (
                   <div
                     className="notification is-danger"
                     data-cy="PostsLoadingError"
@@ -50,13 +50,13 @@ export const App: React.FC = () => {
                   </div>
                 )}
 
-                {author && !loading && !error && posts.length === 0 && (
+                {authorId && !loading && !error && posts.length === 0 && (
                   <div className="notification is-warning" data-cy="NoPostsYet">
                     No posts yet
                   </div>
                 )}
 
-                {author && !loading && !error && posts.length > 0 && (
+                {authorId && !loading && !error && posts.length > 0 && (
                   <PostsList />
                 )}
               </div>

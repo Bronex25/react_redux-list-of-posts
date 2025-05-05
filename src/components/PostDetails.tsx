@@ -11,6 +11,10 @@ export const PostDetails: React.FC = () => {
 
   const [visible, setVisible] = useState(false);
 
+  const onDeleteComment = (commentId: number) => {
+    dispatch(deletePostComment(commentId));
+  };
+
   useEffect(() => {
     if (selectedPost) {
       dispatch(fetchComments(selectedPost.id));
@@ -61,7 +65,7 @@ export const PostDetails: React.FC = () => {
                     type="button"
                     className="delete is-small"
                     aria-label="delete"
-                    onClick={() => dispatch(deletePostComment(comment.id))}
+                    onClick={() => onDeleteComment(comment.id)}
                   >
                     delete button
                   </button>

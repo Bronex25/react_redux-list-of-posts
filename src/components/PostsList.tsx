@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectPost } from '../features/postsSlice';
 import { Post } from '../types/Post';
@@ -10,9 +10,12 @@ export const PostsList: React.FC = () => {
   const dispatch = useAppDispatch();
   const { posts, selectedPost } = useAppSelector(state => state.posts);
 
-  const onSelectPost = (post: Post | null) => {
-    dispatch(selectPost(post));
-  };
+  const onSelectPost = useCallback(
+    (post: Post | null) => {
+      dispatch(selectPost(post));
+    },
+    [dispatch],
+  );
 
   return (
     <div data-cy="PostsList">
